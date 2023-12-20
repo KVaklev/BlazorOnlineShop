@@ -19,7 +19,8 @@
         <tbody>
             @foreach (var product in ProductsList)
             {
-                <tr>
+                <tr style=@(product.UnitInStock == 0 ? "background-color: lightcoral" :"")>
+
                     <td>@product.ProductId</td>
                     <td>@product.ProductName</td>
                     <td>@product.UnitPrice.ToString("0.00")</td>
