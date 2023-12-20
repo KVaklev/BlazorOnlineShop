@@ -17,6 +17,8 @@
             </tr>
         </thead>
         <tbody>
+
+
             @foreach (var product in ProductsList)
             {
                 <tr style=@(product.UnitInStock == 0 ? "background-color: lightcoral" :"")>
