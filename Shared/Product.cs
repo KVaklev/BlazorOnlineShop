@@ -11,5 +11,6 @@
         public decimal UnitPrice { get; set; }
         public int UnitInStock { get; set; }
         public DateTime DeliveryOn { get; set; }
+        public string ImageUrl { get; set; }
     }
 }
