@@ -1,0 +1,45 @@
+﻿@page "/products"
+@inject BlazorOnlineShop.Service.ProductService ProductService
+@using BlazorOnlineShop.Shared
+
+<h1>Products</h1>
+
+@if (ProductsList != null && ProductsList.Any())
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Unit Price</th>
+                <th>Unit In Stock</th>
+                <th>Delivery on</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in ProductsList)
+            {
+                <tr>
+                    <td>@product.ProductId</td>
+                    <td>@product.ProductName</td>
+                    <td>@product.UnitPrice.ToString("0.00")</td>
+                    <td>@product.UnitInStock</td>
+                    <td>@product.DeliveryOn.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No products available.</p>
+}
+
+@code {
+    private List<Product> ProductsList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ProductsList = await ProductService.GetProductsAsync();
+    }
+}
