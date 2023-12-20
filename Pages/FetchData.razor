@@ -4,9 +4,10 @@
 
 <h1>Products</h1>
 
-@if (ProductsList != null && ProductsList.Any())
+@if (DisplayedProducts != null && DisplayedProducts.Any())
 {
     <table class="table table-striped">
+        <!-- Table headers -->
         <thead class="thead-dark">
             <tr>
                 <th>Product ID</th>
@@ -18,12 +19,9 @@
             </tr>
         </thead>
         <tbody>
-
-
-            @foreach (var product in ProductsList)
+            @foreach (var product in DisplayedProducts)
             {
-                <tr style=@(product.UnitInStock == 0 ? "background-color: lightcoral" :"")>
-
+                <tr style="@(product.UnitInStock == 0 ? "color: red;" : "")">
                     <td>@product.ProductId</td>
                     <td>@product.ProductName</td>
                     <td>@product.UnitPrice.ToString("0.00")</td>
@@ -36,6 +34,13 @@
             }
         </tbody>
     </table>
+
+    <!-- Pagination Controls -->
+    <div>
+        <button disabled="@IsPreviousDisabled" @onclick="GoToPreviousPage">Previous</button>
+        <span>Page @CurrentPage</span>
+        <button disabled="@IsNextDisabled" @onclick="GoToNextPage">Next</button>
+    </div>
 }
 else
 {
@@ -44,9 +49,40 @@ else
 
 @code {
     private List<Product> ProductsList;
+    private List<Product> DisplayedProducts;
+    private int PageSize = 7; // Display 7 products per page
+    private int CurrentPage = 1;
 
     protected override async Task OnInitializedAsync()
     {
         ProductsList = await ProductService.GetProductsAsync();
+        UpdateDisplayedProducts();
+    }
+
+    private void UpdateDisplayedProducts()
+    {
+        int startIndex = (CurrentPage - 1) * PageSize;
+        DisplayedProducts = ProductsList.Skip(startIndex).Take(PageSize).ToList();
+    }
+
+    private bool IsPreviousDisabled => CurrentPage == 1;
+    private bool IsNextDisabled => (CurrentPage * PageSize) >= ProductsList.Count;
+
+    private void GoToPreviousPage()
+    {
+        if (!IsPreviousDisabled)
+        {
+            CurrentPage--;
+            UpdateDisplayedProducts();
+        }
+    }
+
+    private void GoToNextPage()
+    {
+        if (!IsNextDisabled)
+        {
+            CurrentPage++;
+            UpdateDisplayedProducts();
+        }
     }
 }
