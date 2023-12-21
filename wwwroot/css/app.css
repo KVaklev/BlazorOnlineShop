@@ -101,3 +101,26 @@ a, .btn-link {
 code {
     color: #c02d76;
 }
+
+.pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    
+    .pagination-controls button {
+        padding: 5px 10px;
+    }
+
+
+@media screen and (min-width: 768px) {
+    .pagination-controls button {
+        display: inline-block;
+    }
+
+    .pagination-controls span {
+        display: inline-block;
+        
+    }
+}

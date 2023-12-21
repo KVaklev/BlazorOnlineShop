@@ -4,6 +4,11 @@
 
 <h1>Products</h1>
 
+<head>
+    <link href="/css/app.css" rel="stylesheet" />
+</head>
+
+
 @if (DisplayedProducts != null && DisplayedProducts.Any())
 {
     <table class="table table-striped" style="font-weight: bold;">
@@ -43,6 +48,7 @@
         <button disabled="@IsNextDisabled" @onclick="GoToNextPage">Next</button>
     </div>
 }
+
 else
 {
     <p>No products available.</p>
