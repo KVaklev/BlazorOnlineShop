@@ -12,7 +12,7 @@
 @if (DisplayedProducts != null && DisplayedProducts.Any())
 {
     <table class="table table-striped" style="font-weight: bold;">
-        <!-- Table headers -->
+        
         <thead class="thead-dark">
             <tr>
                 <th>Product ID</th>
@@ -26,7 +26,7 @@
         <tbody>
             @foreach (var product in DisplayedProducts)
             {
-                //<tr style="@(product.UnitInStock == 0 ? "color: red;" : "")">
+                
                 <tr style="@(product.UnitInStock == 0 ? "background-color: red; color: black;" : "")">
                     <td>@product.ProductId</td>
                     <td>@product.ProductName</td>
@@ -41,7 +41,7 @@
         </tbody>
     </table>
 
-    <!-- Pagination Controls -->
+    
     <div>
         <button disabled="@IsPreviousDisabled" @onclick="GoToPreviousPage">Previous</button>
         <span>Page @CurrentPage</span>
@@ -57,7 +57,7 @@ else
 @code {
     private List<Product> ProductsList;
     private List<Product> DisplayedProducts;
-    private int PageSize = 7; // Display 7 products per page
+    private int PageSize = 7; 
     private int CurrentPage = 1;
 
     protected override async Task OnInitializedAsync()
